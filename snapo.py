@@ -7,18 +7,18 @@ import streamlit as st
 from bs4 import BeautifulSoup
 import aiofiles
 
-# Set page configuration first
+
 def main():
     st.set_page_config(
         page_title="Snapify",
-        page_icon="https://pngimg.com/uploads/snapchat/snapchat_PNG61.png",  # Image URL
+        page_icon="https://pngimg.com/uploads/snapchat/snapchat_PNG61.png",  
         layout="wide",
     )
 
-    # Sidebar with social link and description
+    
     st.sidebar.title("Follow Us")
 
-    # Informative description in the sidebar
+    
     st.sidebar.subheader("About This Site")
     st.sidebar.markdown("""
     This website is a tool designed to help you explore and download **Snapchat** stories.
@@ -35,7 +35,7 @@ def main():
     Stay tuned for additional features and future updates to enhance your Snapchat experience!
     """)
 
-    # Display the Snapchat page directly
+
     snapchat_page()
 
 
@@ -73,7 +73,7 @@ async def download_media(json_dict, session):
             file_type = None
             file_name = None
 
-            # Ensure the media directory exists
+
             media_dir = os.getcwd()
             os.makedirs(media_dir, exist_ok=True)
 
@@ -88,11 +88,11 @@ async def download_media(json_dict, session):
                         file_name += ".jpeg"
                         file_path = os.path.join(media_dir, file_name)
 
-                        # Delete the existing file if it exists
+
                         if os.path.isfile(file_path):
                             os.remove(file_path)
 
-                        # Download the image
+    
                         async with aiofiles.open(file_path, 'wb') as f:
                             while True:
                                 chunk = await response.content.read(1024)
@@ -107,11 +107,11 @@ async def download_media(json_dict, session):
                         file_name += ".mp4"
                         file_path = os.path.join(media_dir, file_name)
 
-                        # Delete the existing file if it exists
+
                         if os.path.isfile(file_path):
                             os.remove(file_path)
 
-                        # Download the video
+
                         async with aiofiles.open(file_path, 'wb') as f:
                             while True:
                                 chunk = await response.content.read(1024)
@@ -130,9 +130,9 @@ async def download_media(json_dict, session):
 
     return media_files
 
-# Function to zip all media files
+
 def zip_media(media_files, username):
-    # Set the filename to TTK_{username}_Snaps.zip
+
     zip_filename = f"TTK_{username}_Snaps.zip"
     
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -142,16 +142,16 @@ def zip_media(media_files, username):
     
     return zip_filename
 
-# Streamlit page to display Snapchat media
+
 def snapchat_page():
-    # Add custom CSS for Snapchat font (you can adjust this to any Snapchat-like font you like)
+
     add_custom_css()
 
-    # Add Snapchat Logo at the top
-    snapchat_logo_url = "https://postcron.com/en/blog/wp-content/uploads/2017/10/snapchat-logo.png"  # Snapchat logo URL
-    st.image(snapchat_logo_url, width=200, caption="Snapchat")  # Adjust width and caption as needed
 
-    # Snapchat title with a custom font (you can adjust the font style in the CSS)
+    snapchat_logo_url = "https://postcron.com/en/blog/wp-content/uploads/2017/10/snapchat-logo.png"  
+    st.image(snapchat_logo_url, width=200, caption="Snapchat")  
+
+
     st.markdown("<h1 style='text-align: center; font-family: \"Snapchat\", sans-serif;'>👻 Snapchat Media Viewer</h1>", unsafe_allow_html=True)
 
     st.markdown(
@@ -159,12 +159,12 @@ def snapchat_page():
         unsafe_allow_html=True,
     )
 
-    # Input field for Snapchat Username
+
     username = st.text_input("Enter Snapchat Username:")
 
     if st.button("Fetch Snaps"):
         if username:
-            # Display a message indicating fetching snaps for the username
+
             st.markdown(f"<p style='font-family: \"Snapchat\", sans-serif; color: gray;'>Fetching snaps from <strong>{username}</strong>...</p>", unsafe_allow_html=True)
 
             async def display_media():
@@ -173,16 +173,16 @@ def snapchat_page():
                     if json_data:
                         media_files = await download_media(json_data, session)
                         if media_files:
-                            # Display the media in a grid format
-                            cols = st.columns(3)  # Adjust this number to control how many images/videos per row
+
+                            cols = st.columns(3) 
                             for i, media_file in enumerate(media_files):
-                                with cols[i % 3]:  # Ensure we cycle through columns
+                                with cols[i % 3]:  
                                     if media_file.endswith(".jpeg"):
                                         st.image(media_file, caption="Image", use_container_width=True)
                                     elif media_file.endswith(".mp4"):
-                                        st.write("Video")  # Display the caption
+                                        st.write("Video")  
                                         st.video(media_file, format="video/mp4")
-                            # Add a download button for the zip
+                           
                             zip_filename = zip_media(media_files, username)
                             with open(zip_filename, "rb") as f:
                                 st.download_button(
@@ -200,7 +200,7 @@ def snapchat_page():
         else:
             st.error("Please enter a valid Snapchat username.")
 
-# Custom CSS for Snapchat font
+
 def add_custom_css():
     st.markdown("""
     <style>
