@@ -17,7 +17,6 @@ def main():
 
     # Sidebar with social link and description
     st.sidebar.title("Follow Us")
-    st.sidebar.markdown("[Telegram](https://t.me/ttklinks)")
 
     # Informative description in the sidebar
     st.sidebar.subheader("About This Site")
