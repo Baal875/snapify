@@ -6,8 +6,29 @@ import zipfile
 import streamlit as st
 from bs4 import BeautifulSoup
 import aiofiles
-from subprocess import Popen, PIPE
-        
+
+# Sidebar with social link and description
+st.sidebar.title("Follow Us")
+st.sidebar.markdown("[Telegram](https://t.me/ttklinks)")
+
+# Informative description in the sidebar
+st.sidebar.subheader("About This Site")
+st.sidebar.markdown("""
+This website is a tool designed to help you explore and download **Snapchat** stories.
+
+### How It Works:
+1. **Enter Username**: Simply enter a **Snapchat username** in the input field to view their publicly available stories.
+
+2. **View Stories**: Once you’ve entered the username, the site will display the user's latest stories (photos and videos). You can browse through the available snaps.
+
+3. **Download Media**: For any snaps you want to keep, click the download button to save them directly to your device. You can even download all the media from a user’s story as a zip file.
+
+4. **Easy Navigation**: The site is organized with an intuitive interface, making it easy to view and download Snapchat media. Simply enter the username, explore the snaps, and download the media you like!
+
+Stay tuned for additional features and future updates to enhance your Snapchat experience!
+""")
+
+
 async def get_json(session, username):
     base_url = "https://story.snapchat.com/@"
     headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/103.0.2'}
@@ -111,8 +132,6 @@ def zip_media(media_files, username):
     
     return zip_filename
 
-
-
 # Streamlit page to display Snapchat media
 def snapchat_page():
     # Add custom CSS for Snapchat font (you can adjust this to any Snapchat-like font you like)
@@ -171,7 +190,6 @@ def snapchat_page():
         else:
             st.error("Please enter a valid Snapchat username.")
 
-
 # Custom CSS for Snapchat font
 def add_custom_css():
     st.markdown("""
@@ -182,7 +200,8 @@ def add_custom_css():
     }
     </style>
     """, unsafe_allow_html=True)
-# Main Function with Navigation
+
+# Main Function
 def main():
     st.set_page_config(
         page_title="Snapify",
@@ -190,36 +209,8 @@ def main():
         layout="wide",
     )
 
-    # Top menu bar with tabs
-    tabs = st.tabs([
-        "Snapchat Downloader", 
-    ])
+    # Display the Snapchat page directly
+    snapchat_page()
 
-    with tabs[0]:
-        snapchat_page()  # Ensure the snapchat_page() function is defined elsewhere
-
-
-    
-
-# Sidebar with social link and description
-st.sidebar.title("Follow Us")
-st.sidebar.markdown("[Telegram](https://t.me/ttklinks)")
-
-# Informative description in the sidebar
-st.sidebar.subheader("About This Site")
-st.sidebar.markdown("""
-This website is a tool designed to help you explore and download **Snapchat** stories.
-
-### How It Works:
-1. **Enter Username**: Simply enter a **Snapchat username** in the input field to view their publicly available stories.
-
-2. **View Stories**: Once you’ve entered the username, the site will display the user's latest stories (photos and videos). You can browse through the available snaps.
-
-3. **Download Media**: For any snaps you want to keep, click the download button to save them directly to your device. You can even download all the media from a user’s story as a zip file.
-
-4. **Easy Navigation**: The site is organized with an intuitive interface, making it easy to view and download Snapchat media. Simply enter the username, explore the snaps, and download the media you like!
-
-Stay tuned for additional features and future updates to enhance your Snapchat experience!
-""")
 if __name__ == "__main__":
     main()
