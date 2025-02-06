@@ -59,7 +59,7 @@ async def get_json(session, username):
         print(f"[DEBUG] Parsed JSON data for {username}.")
         return data
 
-# Function to download media from Snapchat
+
 async def download_media(json_dict, session):
     media_files = []
     try:
