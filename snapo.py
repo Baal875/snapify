@@ -7,26 +7,37 @@ import streamlit as st
 from bs4 import BeautifulSoup
 import aiofiles
 
-# Sidebar with social link and description
-st.sidebar.title("Follow Us")
-st.sidebar.markdown("[Telegram](https://t.me/ttklinks)")
+# Set page configuration first
+def main():
+    st.set_page_config(
+        page_title="Snapify",
+        page_icon="https://pngimg.com/uploads/snapchat/snapchat_PNG61.png",  # Image URL
+        layout="wide",
+    )
 
-# Informative description in the sidebar
-st.sidebar.subheader("About This Site")
-st.sidebar.markdown("""
-This website is a tool designed to help you explore and download **Snapchat** stories.
+    # Sidebar with social link and description
+    st.sidebar.title("Follow Us")
+    st.sidebar.markdown("[Telegram](https://t.me/ttklinks)")
 
-### How It Works:
-1. **Enter Username**: Simply enter a **Snapchat username** in the input field to view their publicly available stories.
+    # Informative description in the sidebar
+    st.sidebar.subheader("About This Site")
+    st.sidebar.markdown("""
+    This website is a tool designed to help you explore and download **Snapchat** stories.
 
-2. **View Stories**: Once you’ve entered the username, the site will display the user's latest stories (photos and videos). You can browse through the available snaps.
+    ### How It Works:
+    1. **Enter Username**: Simply enter a **Snapchat username** in the input field to view their publicly available stories.
 
-3. **Download Media**: For any snaps you want to keep, click the download button to save them directly to your device. You can even download all the media from a user’s story as a zip file.
+    2. **View Stories**: Once you’ve entered the username, the site will display the user's latest stories (photos and videos). You can browse through the available snaps.
 
-4. **Easy Navigation**: The site is organized with an intuitive interface, making it easy to view and download Snapchat media. Simply enter the username, explore the snaps, and download the media you like!
+    3. **Download Media**: For any snaps you want to keep, click the download button to save them directly to your device. You can even download all the media from a user’s story as a zip file.
 
-Stay tuned for additional features and future updates to enhance your Snapchat experience!
-""")
+    4. **Easy Navigation**: The site is organized with an intuitive interface, making it easy to view and download Snapchat media. Simply enter the username, explore the snaps, and download the media you like!
+
+    Stay tuned for additional features and future updates to enhance your Snapchat experience!
+    """)
+
+    # Display the Snapchat page directly
+    snapchat_page()
 
 
 async def get_json(session, username):
@@ -201,16 +212,7 @@ def add_custom_css():
     </style>
     """, unsafe_allow_html=True)
 
-# Main Function
-def main():
-    st.set_page_config(
-        page_title="Snapify",
-        page_icon="https://pngimg.com/uploads/snapchat/snapchat_PNG61.png",  # Image URL
-        layout="wide",
-    )
 
-    # Display the Snapchat page directly
-    snapchat_page()
 
 if __name__ == "__main__":
     main()
