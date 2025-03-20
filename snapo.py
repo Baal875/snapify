@@ -133,7 +133,7 @@ async def download_media(json_dict, session):
 
 def zip_media(media_files, username):
 
-    zip_filename = f"TTK_{username}_Snaps.zip"
+    zip_filename = f"{username}_Snaps.zip"
     
     with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for media_file in media_files:
